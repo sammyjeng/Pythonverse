@@ -2,7 +2,9 @@
 from string import ascii_letters as al,punctuation
 import binascii
 from base64 import b64encode
-
+from itertools import cycle
+from binascii import hexlify
+import operator
 
 def hex2_base64(a):
 	hd = binascii.unhexlify(a)
@@ -35,6 +37,17 @@ def singlebyte_xor(a):
 			return total
 		else:
 			continue
+
+def repeating_xor(key,message):
+	block = 3
+	output = []
+	message = b''.join([bytes(x.encode('ascii')) for x in message])
+	keyarray = cycle(key)
+	for i,j in zip(keyarray,message):
+		test  = operator.xor((i),j)
+#		print(i,j,hex(test))
+		output.append(test)
+	return hexlify(bytearray(output))
 
 if '__name__' == '__main__':
 	main()

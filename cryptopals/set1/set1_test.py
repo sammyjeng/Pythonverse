@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import unittest
-from set1 import hex2_base64
-from set1 import fixed_xor
-from set1 import singlebyte_xor
+from set1 import hex2_base64,fixed_xor,singlebyte_xor,repeating_xor
+
 #from string import ascii_letters as al
 
 class Setonetestcase(unittest.TestCase):
@@ -28,6 +27,12 @@ class Setonetestcase(unittest.TestCase):
 			if res != None:
 				return (res)
 
+	def test_challenge5(self): 
+		key = b"ICE"
+		stanza = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
+		expected = b"0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f"
+		self.assertEqual(repeating_xor(key,stanza),expected)
+
 challenge1 = Setonetestcase().test_challenge1()
 
 challenge2 = Setonetestcase().test_challenge2()
@@ -35,6 +40,8 @@ challenge2 = Setonetestcase().test_challenge2()
 print(Setonetestcase().test_challenge3())
 
 print(Setonetestcase().test_challenge4())
+
+challenge5 = Setonetestcase().test_challenge5()
 
 if __name__ == '__main__':
 	unittest.main()
